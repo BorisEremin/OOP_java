@@ -1,7 +1,7 @@
 package clients;
-import java.time.*;
 
 import java.time.LocalDate;
+import java.time.*;
 
 public class Animal {
     protected String name;
@@ -39,6 +39,16 @@ public class Animal {
 
     private void play () {
         System.out.println(getType() + " играет");
+    }
+
+    protected void toGo(){
+        System.out.println(getType() + " идет");
+    }
+    protected void swim(){
+        System.out.println(getType() + " плывет");
+    }
+    protected void fly(){
+        System.out.println(getType() + " летит");
     }
 
     public void lifeCicle () {
