@@ -15,6 +15,10 @@ public class Animal {
         this.age = age;
         this.owner = owner;
     }
+
+    public String getType() {
+        return getClass().getSimpleName();
+    }
     
     @Override
     public String toString() {
