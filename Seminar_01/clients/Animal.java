@@ -8,4 +8,17 @@ public class Animal {
     public float weight;
     public LocalDate age;
     public Owner owner;
+
+    public Animal(String name, float weight, LocalDate age, Owner owner) {
+        this.name = name;
+        this.weight = weight;
+        this.age = age;
+        this.owner = owner;
+    }
+    
+    @Override
+    public String toString() {
+        
+        return String.format("name = %s, weight = %s, age = %s, owner = %s", name, weight, age, owner);
+    }
 }
