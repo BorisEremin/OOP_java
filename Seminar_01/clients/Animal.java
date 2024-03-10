@@ -3,7 +3,7 @@ package clients;
 import java.time.LocalDate;
 import java.time.*;
 
-public class Animal {
+public abstract class Animal {
     protected String name;
     protected float weight;
     protected LocalDate age;
@@ -16,61 +16,24 @@ public class Animal {
         this.owner = owner;
     }
 
-    public Animal() {
-        this("Животное", 100, LocalDate.now(), new Owner());
-    }
+    public abstract void eat();
+    public String getType(){
 
-    private void sleep() {
-        System.out.println(getType() + " спит");
-    }
-
-    private void wakeUp() {
-        System.out.println(getType() + " встает");
-    }
-
-    private void wakeUp(int time) {
-        System.out.println(getType() + " встает в " + time);
-    }
-
-
-    private void eat () {
-        System.out.println(getType() + " ест");
-    }
-
-    private void play () {
-        System.out.println(getType() + " играет");
-    }
-
-    protected void toGo(){
-        System.out.println(getType() + " идет");
-    }
-    protected void swim(){
-        System.out.println(getType() + " плывет");
-    }
-    protected void fly(){
-        System.out.println(getType() + " летит");
-    }
-
-    public void lifeCicle () {
-        wakeUp(20);
-        eat();
-        play();
-        sleep();
-    }
-
-    public String getType() {
         return getClass().getSimpleName();
     }
 
     public String getName() {
         return name;
     }
+
     public float getWeight() {
         return weight;
     }
+
     public LocalDate getAge() {
         return age;
     }
+    
     public Owner getOwner() {
         return owner;
     }
@@ -82,10 +45,9 @@ public class Animal {
         this.owner = owner;
     }
 
-    
     @Override
     public String toString() {
-        
+
         return String.format("name = %s, weight = %s, age = %s, owner = %s", name, weight, age, owner);
     }
 }
