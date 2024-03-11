@@ -2,7 +2,6 @@ package clients;
 
 import clients.Personal.Works;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +20,14 @@ public class VeterinaryClinic {
         Illanimals.add(animal);
     }
 
-    public void addPersonell(Works worker) {
+    public void addPersonal(Works worker) {
         Personal.add(worker);
     }
 
     public void removeAnimal(Animal animal) {
         Illanimals.remove(animal);
     }
-    public void removePersonell(Works worker) {
+    public void removePersonal(Works worker) {
         Personal.remove(worker);
     }
 
@@ -69,7 +68,7 @@ public class VeterinaryClinic {
         return goable;
     }
 
-    public List<Works> getPersonell() {
+    public List<Works> getPersonal() {
         return Personal;
     }
 

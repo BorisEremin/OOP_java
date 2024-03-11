@@ -1,6 +1,5 @@
 package clients.impl;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import clients.Animal;

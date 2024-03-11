@@ -1,7 +1,6 @@
 package clients;
 
 import java.time.LocalDate;
-import java.time.*;
 
 public abstract class Animal {
     protected String name;
@@ -33,7 +32,7 @@ public abstract class Animal {
     public LocalDate getAge() {
         return age;
     }
-    
+
     public Owner getOwner() {
         return owner;
     }

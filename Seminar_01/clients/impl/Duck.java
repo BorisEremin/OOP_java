@@ -2,7 +2,6 @@ package clients.impl;
 
 import clients.*;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Duck extends Animal implements Flyable, Swimable, Goable {

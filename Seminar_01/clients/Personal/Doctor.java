@@ -1,13 +1,12 @@
 package clients.Personal;
 
 import clients.Animal;
-import clients.Personal.Works;
 
 import java.time.LocalDate;
 
 public class Doctor extends Works {
 
-    private Works worker;
+    private Works works;
 
     public Doctor(String name, LocalDate age, LocalDate EmplDate, double salary) {
         super(name, age, EmplDate, salary);
