@@ -10,12 +10,16 @@ import pharmacy.impl.Vetbicid;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 public class main {
     public static void main(String[] args) {
 
+        ArrayList<MedicineComponent> medLists = new ArrayList<>();
         MedicineComponent asitrom = new Asitromin("Аситромин", 50, 70);
         MedicineComponent penicil = new Peniciline("Пеницилин", 30, 50);
         MedicineComponent vetbic = new Vetbicid("Ветбицит", 40, 10);
@@ -25,10 +29,11 @@ public class main {
 
         // }
 
-        Iterator<MedicineComponent> med = medicine1;
-        while (med.hasNext()) {
-            System.out.println(med.next());
-        }
+        // Iterator<MedicineComponent> med = medicine1;
+        // while (med.hasNext()) {
+        //     System.out.println(med.next());
+        // }
+        
 
         // Doctor doc = new Doctor("Morgan Freeman", LocalDate.of
         //         (1989, 4, 17), LocalDate.of
@@ -65,5 +70,12 @@ public class main {
         // System.out.println(clinic.getSalary(doc));
         // clinic.setSalary(doc, 130000);
         // System.out.println(clinic.getSalary(doc));
+
+        medLists.add(asitrom);
+        medLists.add(vetbic);
+        medLists.add(penicil);
+        System.out.println(medLists);
+        Collections.sort(medLists, (comp1, comp2) -> (int)(comp1.getWeight() - comp2.getWeight()));
+        System.out.println(medLists);
     }
 }

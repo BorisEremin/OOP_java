@@ -1,6 +1,6 @@
 package pharmacy;
 
-public abstract class MedicineComponent {
+public abstract class MedicineComponent implements Comparable<MedicineComponent>{
 
     private String name;
 
@@ -12,6 +12,25 @@ public abstract class MedicineComponent {
         this.name = name;
         this.weight = weight;
         this.power = power;
+    }
+
+    @Override
+    public int compareTo(MedicineComponent o) {
+        return power - o.power;
+        // return Integer.compare(this.power, o.power);
+
+        // if (this.power > o.power) {
+        //     return 1;
+        // }
+        
+        // else if (this.power < 0.power) {
+        //     return -1;
+        // }
+        // return 0;
+    }
+
+    public float getWeight() {
+        return weight;
     }
 
     @Override
