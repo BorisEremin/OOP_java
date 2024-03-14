@@ -33,6 +33,14 @@ public abstract class MedicineComponent implements Comparable<MedicineComponent>
         return weight;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Integer getPower() {
+        return power;
+    }
+
     @Override
     public String toString() {
         return "MedicineComponent{" + 
