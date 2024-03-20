@@ -2,9 +2,10 @@ package notebook.controller;
 
 import notebook.model.User;
 import notebook.model.repository.GBRepository;
-
+import notebook.util.mapper.UserValidation;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class UserController {
     private final GBRepository repository;

@@ -2,6 +2,7 @@ package notebook.util.mapper;
 
 import notebook.model.User;
 
+
 public class  UserValidation {
 
     public boolean valid(User user) {
