@@ -1,26 +1,31 @@
 package notebook.model.repository.impl;
 
-import notebook.model.dao.impl.FileOperation;
 import notebook.util.mapper.impl.UserMapper;
 import notebook.model.User;
 import notebook.model.repository.GBRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.io.*;
 
 public class UserRepository implements GBRepository {
     private final UserMapper mapper;
-    private final FileOperation operation;
+    private final String fileName;
 
-    public UserRepository(FileOperation operation) {
+
+    public UserRepository(String fileName) {
+        this.fileName = fileName;
         this.mapper = new UserMapper();
-        this.operation = operation;
+        try (FileWriter writer = new FileWriter(fileName, true)) {
+            writer.flush();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 
     @Override
     public List<User> findAll() {
-        List<String> lines = operation.readAll();
+        List<String> lines = readAll();
         List<User> users = new ArrayList<>();
         for (String line : lines) {
             users.add(mapper.toOutput(line));
@@ -57,26 +62,29 @@ public class UserRepository implements GBRepository {
                 .filter(u -> u.getId()
                         .equals(userId))
                 .findFirst().orElseThrow(() -> new RuntimeException("User not found"));
-        if (!update.getFirstName().isEmpty()) {
-            editUser.setFirstName(update.getFirstName());
-        }
-
-        if (!update.getLastName().isEmpty()) {
-            editUser.setLastName(update.getLastName());
-        }
-
-        if (!update.getPhone().isEmpty()) {
-            editUser.setPhone(update.getPhone());
-        }
-        // editUser.setFirstName(update.getFirstName());
-        // editUser.setLastName(update.getLastName());
-        // editUser.setPhone(update.getPhone());
+        editUser.setFirstName(update.getFirstName().isEmpty() ? editUser.getFirstName() : update.getFirstName());
+        editUser.setLastName(update.getLastName().isEmpty() ? editUser.getLastName() : update.getLastName());
+        editUser.setPhone(update.getPhone().isEmpty() ? editUser.getPhone() : update.getPhone());
         write(users);
         return Optional.of(update);
     }
 
     @Override
     public boolean delete(Long id) {
+        List<User> users = findAll();
+        for (User user : users) {
+            if (Objects.equals(user.getId(), id)) {
+                users.removeAll(Collections.singleton(user));
+                System.out.println("удаление пользователя... ");
+                List<String> lines = new ArrayList<>();
+                for (User u : users) {
+                    lines.add(mapper.toInput(u));
+                }
+                saveAll(lines);
+                break;
+            }
+
+        }
         return false;
     }
 
@@ -85,7 +93,44 @@ public class UserRepository implements GBRepository {
         for (User u: users) {
             lines.add(mapper.toInput(u));
         }
-        operation.saveAll(lines);
+        saveAll(lines);
     }
 
+    @Override
+    public List<String> readAll() {
+        List<String> lines = new ArrayList<>();
+        try {
+                File file = new File(fileName);
+                FileReader fr = new FileReader(file);
+                BufferedReader reader = new BufferedReader(fr);
+                String line = reader.readLine();
+                if (line != null) {
+                    lines.add(line);
+                }
+                while (line != null) {
+                    line = reader.readLine();
+                    if (line != null) {
+                        lines.add(line);
+                    }
+                }
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return lines;
+    }
+
+    @Override
+    public void saveAll(List<String> data) {
+        try (FileWriter writer = new FileWriter(fileName, false)) {
+            for (String line : data) {
+                writer.write(line);
+                writer.append('\n');
+            }
+            writer.flush();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }

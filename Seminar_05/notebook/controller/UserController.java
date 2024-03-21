@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class UserController {
     private final GBRepository repository;
 
+    // DI
     public UserController(GBRepository repository) {
         this.repository = repository;
     }
@@ -29,12 +30,45 @@ public class UserController {
         throw new RuntimeException("User not found");
     }
 
+    public void updateUser(String userId, User update) {
+        update.setId(Long.parseLong(userId));
+        repository.update(Long.parseLong(userId), update);
+    }
+
+    public boolean deleteUser(Long userid) {
+        List<User> users = repository.findAll();
+        for (User user : users) {
+            if (Objects.equals(user.getId(), userid)) {
+                repository.delete(userid);
+            }
+
+        }
+        return true;
+    }
+    
+    public User createUser() {
+        UserValidation userValidation = new UserValidation();
+
+        String firstName = scan("Имя: ");
+        String lastName = scan("Фамилия: ");
+        String phone = scan("Номер телефона: ");
+        User user = new User(firstName, lastName, phone);
+        if (userValidation.valid(user)){
+            return user;
+        } else {
+            throw new IllegalArgumentException("Введены некорректные данные");
+        }
+    }
+
+
+
     public List<User> readAll() {
         return repository.findAll();
     }
 
-    public void updateUser(String userId, User update) {
-        update.setId(Long.parseLong(userId));
-        repository.update(Long.parseLong(userId), update);
+    private String scan(String message) {
+        Scanner in = new Scanner(System.in);
+        System.out.print(message);
+        return in.nextLine();
     }
 }
