@@ -1,4 +1,4 @@
-package homework;
+package Seminar_06HW;
 
 public class Main{
     public static void main(String[] args){
